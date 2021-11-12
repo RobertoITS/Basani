@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.google.android.material.tabs.TabLayout
 import com.roberto.basani.databinding.StartPageBinding
 import kotlin.concurrent.thread
 
@@ -15,16 +16,28 @@ class StartPage : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.startPage.translationX = -800F
-        binding.startPage.alpha = 0F
-        binding.startPage.animate().translationX(0F).alpha(1F).setDuration(1000).setStartDelay(600).start()
+        binding.table.addTab(binding.table.newTab().setText("Ingresar"))
+        binding.table.addTab(binding.table.newTab().setText("Registrar"))
+        binding.table.tabGravity = TabLayout.GRAVITY_FILL
+        val adapter = com.roberto.basani.adapters.TabAdapter(
+            this,
+            supportFragmentManager,
+            binding.table.tabCount
+        )
+        binding.pager.adapter = adapter
+        binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.table))
+        binding.table.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.pager.currentItem = tab!!.position
+            }
 
-        val intent = Intent(this, MainActivity::class.java)
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
 
-        //Thread.sleep(3000)
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
 
-        startActivity(intent)
-        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        })
 
     }
 }
