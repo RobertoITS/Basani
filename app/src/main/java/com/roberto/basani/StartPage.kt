@@ -16,8 +16,9 @@ class StartPage : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.table.addTab(binding.table.newTab().setText("Ingresar"))
-        binding.table.addTab(binding.table.newTab().setText("Registrar"))
+        binding.table.addTab(binding.table.newTab().setText(getString(R.string.start)))
+        binding.table.addTab(binding.table.newTab().setText(getString(R.string.load)))
+        binding.table.addTab(binding.table.newTab().setText(getString(R.string.search)))
         binding.table.tabGravity = TabLayout.GRAVITY_FILL
         val adapter = com.roberto.basani.adapters.TabAdapter(
             this,
